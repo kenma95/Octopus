@@ -1,0 +1,25 @@
+import urllib
+import urllib2
+import random
+import re
+
+
+
+url ='http://www.walmart.com/ip/Madden-NFL-16-PS4/44910429'
+request = urllib2.Request(url)
+response = urllib2.urlopen(request)
+#print response.reassd()
+
+content = response.read().decode('utf-8')
+
+pattern = re.compile('<title>(.*?)</title>',re.S)
+items = re.findall(pattern,content)
+title = items[0]
+
+pattern = re.compile('class=\"Price-sup\">\$<\/span>([\s\S]*)<span class=\"Price-mark\">')
+items = re.findall(pattern,content)
+print items
+
+pattern = re.compile('''<span class="Price\-mark">.</span><span class="Price-sup">([\s\S]*)</span>''',re.S)
+items = re.findall(pattern,content)
+print items

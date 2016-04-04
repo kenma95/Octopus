@@ -38,7 +38,7 @@ def login_router():
 def search_router():
     error =None
     if 'keyword' in request.args:
-        search.search_item(request.args['keyword'])
+        search_item(request.args['keyword'])
     else:
         return 'wrong format'
 

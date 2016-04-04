@@ -1,0 +1,4 @@
+class ItemSchema(ma.Schema):
+	class Metat:
+	#Fields to expose
+	

@@ -17,7 +17,7 @@ class Item(db.Model):
     store_id = db.Column(db.String(40), primary_key=True)
     item_name = db.Column(db.String(120), unique=False)
     price = db.Column(db.Numeric(2),unique =False)
-    description = db.Column(db.Text(3000), unique=False)
+    description = db.Column(db.Text(3000), unique=True)
     photo = db.Column(db.String(120))
     remain = db.Column(db.Integer,unique=False)
 
