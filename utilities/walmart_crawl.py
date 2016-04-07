@@ -5,7 +5,7 @@ import re
 import uuid
 import os
 
-localPath = 'c:\\users\\ruiqi\\dropbox\\octopus\\\static\\img\\item' 
+localPath = 'c:\\users\\ruiqi\\dropbox\\octopus\\\static\\img' 
 def getAndSaveImg(imgUrl): 
   if( len(imgUrl)!= 0 ): 
     img_filename=generateFileName()+'.jpg' 
@@ -23,15 +23,12 @@ def createFileWithFileName(localPathParam,fileName):
     return totalPath 
 
 
-
-
-
-start_with = 1
+start_with = 29
 now_with =start_with
 
-istr = open('walmart.txt','r')
+istr = open('xbox.txt','r')
 url_addr = istr.readline()
-ostr = open('dump2.sql', 'w')
+ostr = open('dump3.sql', 'w')
 
 for url in istr:
 	request = urllib2.Request(url)
