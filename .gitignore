@@ -62,6 +62,10 @@ instance/
 # Sphinx documentation
 docs/_build/
 
+#py
+.pyc
+.py~
+
 # PyBuilder
 target/
 
@@ -88,4 +92,5 @@ ENV/
 .ropeproject
 
 # static folder
-.static/*
+static/
+
