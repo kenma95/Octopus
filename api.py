@@ -16,20 +16,16 @@ def hello_world():
 @app.route('/register',methods =['POST'])
 def register_router():
     error = None
-    code,msg = register.valid_register(request.form['username'],\
-        request.form['password'])
-
-    if code == 0:
-        register.add_user(request.form['username'],\
-    	   request.form['password'])
-        return 'register succeed'
-    else:
-        return msg
+    uid = request.form['username']
+    password = request.form['password']
+    if register.valid_register(uid,password):
+	return register.add_user(uid, password)
+    else: 
+        return register.reg_failed()
 
 
 @app.route('/login', methods=['POST'])
 def login_router():
-    error = None
     if login.valid_login(request.form['username'],
     	request.form['password']):
         return login.log_the_user_in(request.form['username'])
@@ -37,8 +33,8 @@ def login_router():
     	error = 'Invalid username/password'
     # the code below is executed if the request method
     # was GET or the credentials were invalid
-    print 'login fail...'
-    return 'login fail...'
+    #return {'code':"-1",'msg':'login fail...'}
+    return login.login_failed()	
 
 @app.route('/search', methods=['GET'])
 def search_router():
@@ -61,4 +57,5 @@ def get_item_router():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.debug = True
+    app.run(host = '0.0.0.0')
