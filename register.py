@@ -7,13 +7,13 @@ salt = b'oct'
 def valid_register(uid,password):
     #do check
     if len(uid) <= 4:
-        return -1, "user id is less than 4 characters/numbers."
+        return False
     if len(password) < 6:
-        return -1, "password is less than 6 characters/numbers"
+        return False
     user_check = User.query.filter_by(user_id = uid).first()
     if user_check is not None:
-        return -1,"username already existed"
-    return 0, "success"
+        return False
+    return True
 
 
 def add_user(uid,password):
@@ -21,4 +21,12 @@ def add_user(uid,password):
     new_user = User(uid,s_pwd)
     db.session.add(new_user)
     db.session.commit()
+    temp = {'code':0,'msg':'register successfully'}
     print "add user " + uid + " pwd" + password
+    return jsonify(target_item = temp)
+
+def reg_failed():
+    temp = {'code':-1,'msg':'register failed'}
+    resp = jsonify(target_item = temp)
+    resp.status_code = 200
+    return resp

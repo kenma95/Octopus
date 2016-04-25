@@ -1,5 +1,7 @@
 from db_schema import *
 import hashlib
+from flask import jsonify
+
 
 salt = b'oct'
 
@@ -12,5 +14,12 @@ def valid_login(username,password):
     return valid is not None
 
 def log_the_user_in(username):
-    print 'login succeed...'
-    return 'login succeed...'
+    print username + ' login succeed...'
+    temp =  {'code':0,'msg':'login successfully'}
+    return jsonify(target_item = temp)
+
+def login_failed():
+    temp = {'code':-1,'msg':'login failed'}
+    resp = jsonify(target_item = temp)
+    resp.status_code = 200
+    return resp
