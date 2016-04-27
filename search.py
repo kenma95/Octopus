@@ -1,7 +1,8 @@
 import db_schema
 from db_schema import Item
 from flask import jsonify
-#search related Item
+
+
 
 def search_item(keyword,storeid,order='item_id',offset=0):
     item_list = Item.query.filter(Item.item_name.like('%'+keyword+'%')).\
@@ -20,3 +21,8 @@ def get_item(itemid,storeid):
     temp = target_item.to_json2()
     return jsonify(target_item=temp)
 
+def get_loc(itemid,storeid):
+    target_item = Item.query.filter_by(item_id = itemid\
+,store_id =storeid).first()
+    temp =target_item.to_json3()
+    return jsonify(target_item=temp)

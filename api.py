@@ -4,15 +4,18 @@ import db_schema
 import login
 import search
 import register
+import os
+import get_store
+from werkzeug import secure_filename
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
     return 'Hello World!'
 
-
-
-
+@app.route('/get_store',methods = ['GET'])
+def get_store_all():
+   return get_store.get_all() 
 @app.route('/register',methods =['POST'])
 def register_router():
     error = None
@@ -53,6 +56,13 @@ def get_item_router():
         return 'wrong format'
 
 
+@app.route('/get_loc', methods=['GET'])
+def get_loc_router():
+    error =None
+    if 'item_id' in request.args and 'store_id' in request.args:
+        return search.get_loc(request.args['item_id'],request.args['store_id'])
+    else:
+        return 'wrong format'
 
 
 

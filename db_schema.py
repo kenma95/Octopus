@@ -17,6 +17,16 @@ class Item(db.Model):
     description = db.Column(db.Text(3000), unique=False)
     photo = db.Column(db.String(120))
     remain = db.Column(db.Integer,unique=False)
+    locx = db.Column(db.Integer,unique = False)
+    locy = db.Column(db.Integer,unique = False)
+
+    def to_json3(self):
+	return {'item_id' : self.item_id
+	    ,'locx' : self.locx
+	    ,'locy': self.locy
+    }
+
+
     def to_json2(self):
         return {'item_id' : self.item_id
             ,'item_name' : self.item_name
@@ -63,3 +73,29 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.user_id
+
+
+
+
+class Store(db.Model):
+    store_id = db.Column(db.String(40), primary_key=True)
+    store_name = db.Column(db.Text(3000), unique=False)
+    address = db.Column(db.Text(3000),unique=False)
+
+    def to_json1(self):
+        return {'store_id' : self.store_id
+            ,'store_name' : self.store_name
+            ,'address': self.address
+            }
+
+
+
+    def __init__(self, store_id,\
+		 store_name,address):
+        self.store_id = store_id
+        self.store_name =store_name
+        self.address = address
+  
+
+    def __repr__(self):
+        return '<Store %r>' % self.item_id
