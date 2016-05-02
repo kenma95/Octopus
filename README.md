@@ -1,5 +1,7 @@
 # Octopus_Server
 
+<img src="http://i.imgur.com/B4rBF3b.png=100x20" alt="Octopus Logo" width="300">
+
 ## Introduction
 API access for Back-end server supports Octopus, the in-store navigating iOS App. The http API service is built by Flask, the Python microframework. This is a part of the Team Octopus project for 2016 Spring CSCI-4440 Software Design & Documentation course.
  
@@ -37,7 +39,15 @@ Most of the requirements can be installed by calling like `pip install Flask` in
   - search for a list of items using keyword
 - get_item
   - get a specific item detailed information using item id
+- get_store
+  - get all store info
+- get_loc
+  - get the related location (x,y) of ta specific item
   
+
 # Credit
 - SDD Octopus Team
   - Main Maintainer: Ruiqi Ma
+- Related Repo:
+  - Android Client
+  - https://github.com/McFlyRemix/OctopusNew
