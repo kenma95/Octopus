@@ -53,7 +53,7 @@ class Item(db.Model):
         self.item_name = item_name
         self.price =price
         self.description = description
-        self.photo = photo_addr
+        self.photo = photoaddr
 
     def __repr__(self):
         return '<Item %r>' % self.item_id
@@ -99,3 +99,16 @@ class Store(db.Model):
 
     def __repr__(self):
         return '<Store %r>' % self.item_id
+
+class User_Store(db.Model):
+    store_id = db.Column(db.String(40), primary_key=True)
+    userid  = db.Column(db.String(40),primary_key = True)
+
+    def __init__(self, store_id,user_id):
+        self.store_id = store_id
+        self.userid = user_id
+  
+    def __repr__(self):
+	return '<Userstore %r>' % self.store_id 
+    def get_store_id(self):
+	return self.store_id

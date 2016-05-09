@@ -77,37 +77,53 @@ def get_loc_router():
         return 'wrong format'
 
 @app.route('/add_item', methods=['POST'])
+def add_item_router():
+    print "in add item"
+    print request.form['username']
     if login.valid_login(request.form['username'],
     	request.form['password']):
-        #get store id
-        store_id = get_store_by_user(request.form['username'])
-        if 'item_name' in request.args:
+        #get store idi
+	print "pass login"
+        store_id = add_item.get_store_by_user(request.form['username'])
+
+        print store_id
+        if 'item_name' in request.form:
             item_name = request.form['item_name']
-            if not check_valid_add(item_name,store_id):
+            if not add_item.check_valid_add(item_name,store_id):
+		
+                print "conflict in database"
                 return add_item.add_failed()
         else:
             return add_item.add_failed()
-        if 'item_desc' in request.args:
+        print item_name
+        if 'item_desc' in request.form:
             item_desc = request.form['item_desc']
         else:
              item_desc = None
-        if 'item_price'in request.args:
+        if 'item_price'in request.form:
             item_price = float(request.form['item_price'])
         else:
             item_price =None
-        if 'item_img' in request.args:
-            img_file = request.files['file']
-            filename = secure_filename(file.filename)
+        if 'item_img' in request.files:
+            img_file = request.files['item_img']
+
+            filename = secure_filename(img_file.filename)
+            upload_file(img_file)
         else:
             filename = None
         add_item.add_item_db(store_id,item_name,item_price,item_desc,filename)
-        upload_file(img_file)
+
+    else:
+	print "login failed"
+        return "login failed"
+    return "add succeeded"
 
 
 def upload_file(img_file):
     if img_file and allowed_file(img_file.filename):
         filename = secure_filename(img_file.filename)
         img_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        print "saved" + filename
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
